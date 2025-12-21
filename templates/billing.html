@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{data.store_name}}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="Headder">
+        <div>
+            <h2 class="HH1">{{data.store_name}}</h2>
+        </div>
+        <div>
+            <!-- Headder -->
+        </div>
+        <!-- Headder End -->
+    </div>
+    <div class="Container">
+        <div class="List-pannel">
+            <!-- Left side content-->
+             <div class="Pannel">
+                <div class="Selection">
+                    <!-- Selection -->
+                    <select id="product">
+                    {% for p in data.products %}
+                    <option value="{{p.price}}">{{p.name}}</option>
+                    {% endfor %}
+                    </select>
+
+
+                    <input id="qty" type="number" value="1">
+                    <button class="B1" onclick="add()">Add</button>
+                </div>
+                <div class="List1">
+                    <!-- List-->
+                     <h2 class="H2">
+                        List
+                     </h2>
+
+                     <ul id="list"></ul>
+                     <h3 class="H3">Total: ₹<span id="total">0</span></h3>
+
+                     <button class="B1" style="width: auto;" onclick="generateBill()">Generate QR & Save Bill</button>
+
+                </div>
+             </div>
+        </div>
+
+        <div class="qr">
+            <!-- right side content-->
+             <div class="Pannel">
+                <div class="head">
+                    <H2 style="text-align: center;" class="H2">
+                        Scan And Pay
+                    </H2>
+                </div>
+                <br><br>
+                <div style="display: flex; justify-content: center;">
+                    <img id="qrImage" style="display:none; width: 400px; justify-content: space-evenly;">
+                </div>
+                
+
+
+                <script src="/static/script.js"></script>
+                
+             </div>
+        </div>
+    </div>
+</body>
+</html>

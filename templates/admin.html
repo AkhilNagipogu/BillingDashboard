@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin</title>
+<link rel="stylesheet" href="/static/style-ad.css">
+</head>
+<body>
+
+
+<div class="header">
+    <h1 class="title"> Admin Panel </h1>
+</div>
+
+
+<div class="Id">
+    <label class="Text">Store Name</label>
+    <input id="store" value="{{data.store_name}}">
+    <br><br>
+    <label class="Text">UPI ID</label>
+    <input id="upi" value="{{data.upi_id}}">
+
+</div>
+
+
+<div class="Id">
+
+    <h3>Products</h3>
+    <div id="products"></div>
+    <button onclick="addProduct()">Add Product</button>
+
+
+    <br><br>
+    <button onclick="save()">Save</button>
+
+
+    <script>
+    let products = {{ data.products | tojson }};
+
+    function render() {
+        const div = document.getElementById('products');
+        div.innerHTML = '';
+
+        products.forEach((p, index) => {
+            div.innerHTML += `
+                <div style="margin-bottom:8px;">
+                    <input 
+                        placeholder="Product name"
+                        value="${p.name}"
+                        oninput="products[${index}].name = this.value"
+                    >
+                    <input 
+                        type="number"
+                        placeholder="Price"
+                        value="${p.price}"
+                        oninput="products[${index}].price = Number(this.value)"
+                    >
+                    <button onclick="deleteProduct(${index})">❌</button>
+                </div>
+            `;
+        });
+    }
+
+    function addProduct() {
+        products.push({ name: '', price: 0 });
+        render();
+    }
+
+    function deleteProduct(index) {
+        products.splice(index, 1);
+        render();
+    }
+
+    function save() {
+        fetch('/save-admin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                store_name: document.getElementById('store').value,
+                upi_id: document.getElementById('upi').value,
+                products: products
+            })
+        }).then(() => alert('Saved successfully'));
+    }
+
+    render();
+    </script>
+
+</div>
+
+
+</body>
+</html>
