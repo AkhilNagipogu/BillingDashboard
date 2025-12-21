@@ -1,0 +1,18 @@
+{
+    "store_name": "Billing Dashboard",
+    "upi_id": "evocation@upi",
+    "products": [
+        {
+            "name": "Item 1",
+            "price": 15
+        },
+        {
+            "name": "Item 2",
+            "price": 30
+        },
+        {
+            "name": "Item 3",
+            "price": 50
+        }
+    ]
+}
